@@ -193,6 +193,18 @@ public class HomeController {
         return people;
     }
 
+    @GetMapping("/home/removePerson")
+    @ResponseBody
+    public String removePerson(int id) {
+        boolean removed = people.removeIf(person -> person.getId() == id);
+
+        if (removed == false) {
+            return "%d번 사람이 존재하지 않습니다.".formatted(id);
+        }
+
+        return "%d번 사람이 삭제되었습니다.".formatted(id);
+    }
+
     class Car {
         private final int id;
         private final int speed;
