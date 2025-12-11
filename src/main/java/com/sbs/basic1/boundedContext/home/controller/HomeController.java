@@ -1,5 +1,7 @@
 package com.sbs.basic1.boundedContext.home.controller;
 
+import com.sbs.basic1.boundedContext.member.entity.Member;
+import com.sbs.basic1.boundedContext.member.service.MemberService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -19,10 +21,13 @@ import java.util.*;
 public class HomeController {
     private int count;
     private List<Person> people;
+    private MemberService memberService;
 
     public HomeController() {
         count = -1;
         people = new ArrayList<>();
+
+        memberService = new MemberService();
     }
 
     @GetMapping("/home/main")
@@ -253,6 +258,12 @@ public class HomeController {
     public void showRegAndResp(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         int age = Integer.parseInt(req.getParameter("age"));
         resp.getWriter().append("Hello");
+    }
+
+    @GetMapping("/home/user1")
+    @ResponseBody
+    public Member showUser1() {
+        return memberService.findByUserName("user1");
     }
 
     class Car {
