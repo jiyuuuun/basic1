@@ -3,17 +3,20 @@ package com.sbs.basic1.boundedContext.member.service;
 import com.sbs.basic1.boundedContext.base.rsData.RsData;
 import com.sbs.basic1.boundedContext.member.entity.Member;
 import com.sbs.basic1.boundedContext.member.repository.MemberRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 // @Component : 아래 클래스는 Ioc 컨테이너에 의해 생사소멸이 관리된다.
-// @Service : @Component와 같은 의미, 가독성 때문에 이렇게 표기
+// @Service : @Component 와 같은 의미, 가독성 때문에 이렇게 표기
 @Service
 public class MemberService {
     private final MemberRepository memberRepository;
 
-    public  MemberService() {
-        memberRepository = new MemberRepository();
+    @Autowired
+    public  MemberService(MemberRepository memberRepository) {
+        this.memberRepository = memberRepository;
     }
+
     public RsData tryLogin(String username, String password) {
         Member member = memberRepository.findByUserName(username);
 

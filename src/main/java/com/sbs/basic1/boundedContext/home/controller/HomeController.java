@@ -25,11 +25,13 @@ public class HomeController {
 
     // 필드 주입
     @Autowired
-    private MemberService memberService;
+    private final MemberService memberService;
 
-    public HomeController() {
+    public HomeController(MemberService memberService) {
         count = -1;
         people = new ArrayList<>();
+
+        this.memberService = memberService;
     }
 
     @GetMapping("/home/main")
@@ -79,9 +81,9 @@ public class HomeController {
     @ResponseBody
     public List<Integer> showIntArray() {
         List<Integer> list = new ArrayList<>() {{
-           add(10);
-           add(20);
-           add(30);
+            add(10);
+            add(20);
+            add(30);
         }};
 
         return list;
